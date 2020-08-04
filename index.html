@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Game dap chuot</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body id="bd">
+<table id="tb">
+    <tr>
+        <td rowspan="3">
+            <canvas id="myCanvas" width="900" height="600"></canvas>
+        </td>
+        <td><div><label id="time"></label></div></td>
+    </tr>
+    <tr>
+        <td><div><label id="score"></label></div></td>
+    </tr>
+    <tr>
+        <td id = "button"><input type="button" value="Start Game" onclick="startGame()"></td>
+    </tr>
+</table>
+</body>
+<script>
+    let time = 60;
+    let score = 0;
+    let count = 0;
+    let c = document.getElementById("myCanvas");
+    let ctx = c.getContext('2d');
+    let arrayX = [10, 300, 595];
+    let arrayY = [16, 185, 363];
+    let a = arrayX[getRandom()];
+    let b = arrayY[getRandom()];
+    let timeID;
+    let timeID2;
+    var nx;
+    var ny;
+    let getscore;
+    let nhacnen;
+
+    let Rat = function (x, y) {
+        this.x = x;
+        this.y = y;
+        this.image = new Image();
+        this.image.src = "images/rat.png";
+
+        this.setX = function (x) {
+            this.x = x;
+        }
+
+        this.setY = function () {
+            this.y = arrayY[getRandom()];
+        }
+
+        this.draw = function () {
+            ctx.drawImage(this.image, this.x, this.y, 300, 200);
+        }
+
+    }
+
+    function clearScreen() {
+        ctx.clearRect(0, 0, 900, 600);
+    }
+
+
+    function move() {
+        rat.setX(arrayX[getRandom()]);
+        rat.setY();
+        rat.draw();
+        nhacnen.play();
+        endGame();
+        document.onclick = function () {
+            nx = event.clientX;
+            ny = event.clientY;
+            for (let i = rat.x + 50; i < rat.x + 250 ; i++) {
+                for (let j = rat.y; j < rat.y + 200 ; j++) {
+                    if (i == nx && j == ny){
+                        score++;
+                        rat.setX(5000);
+                        getscore.play();
+                    }
+                }
+            }
+        }
+        document.getElementById('score').innerHTML = "Score: " + score;
+        document.getElementById('time').innerHTML = "Time: " + time;
+    }
+
+    function startGame() {
+        rat = new Rat(a, b);
+        rat.draw();
+        timeID = setInterval(move, 800);
+        timeID2 = setInterval(clearScreen, 1300);
+        countDown();
+        sound();
+    }
+
+
+    function endGame() {
+        if (time < 0) {
+            clearInterval(timeID);
+            clearInterval(timeID2);
+            nhacnen.pause;
+            thongBao = window.confirm("Hết thời gian mất rồi!!! Muốn chơi nữa hông?")
+            if (thongBao) {
+                window.location.reload();
+            }
+        }
+    }
+
+
+    function countDown() {
+        setInterval(function () {
+            time--;
+        }, 1000)
+    }
+
+    function sound() {
+        getscore = new Audio("sound/ghidiem.wav");
+        nhacnen = new Audio("sound/nhacnen.mp3");
+    }
+
+    function getRandom() {
+        return Math.floor(Math.random() * 3);
+    }
+</script>
+</html>

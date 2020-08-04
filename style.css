@@ -1,0 +1,22 @@
+#myCanvas {
+    border: black 1px solid;
+    background-image: url("images/background.png");
+}
+
+label#score {
+    font-size: -webkit-xxx-large;
+    color: white;
+}
+
+label#time {
+    font-size: -webkit-xxx-large;
+    color: white;
+}
+
+#bd {
+    background-image: url("images/bdbg.jpg");
+}
+
+input[type="button"] {
+    font-size: xxx-large;
+}
