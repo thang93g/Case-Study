@@ -1,6 +1,7 @@
 #myCanvas {
     border: black 1px solid;
     background-image: url("images/background.png");
+    cursor: url("images/hammer.png")auto;
 }
 
 label#score {
@@ -20,3 +21,5 @@ label#time {
 input[type="button"] {
     font-size: xxx-large;
 }
+
+
